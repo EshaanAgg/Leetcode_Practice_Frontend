@@ -28,15 +28,12 @@
   <!-- Show the table -->
   <el-table
     :data="fetchedQuestions[0]"
-    :default-sort="{ prop: 'leetcode_id', order: 'ascending' }"
     style="width: 100%"
     :row-class-name="getSolvedStatus"
   > 
-    <el-table-column label="Completed" width="120" >
+    <el-table-column label="Status" width="120" >
       <template #default="scope">
-        <div style="display: flex; align-items: center">
-          <el-checkbox size="large" border :checked="solvedQuestionsLocalStorage[scope.row.leetcode_id]" @change="changeQuestionStatus(scope.row.leetcode_id)" />
-        </div>
+        <el-button @click="changeQuestionStatus(scope.row.leetcode_id)">Toggle</el-button>
       </template>
     </el-table-column>
     <el-table-column prop="leetcode_id" label="ID" width="60" />
@@ -59,13 +56,6 @@ import nuxtStorage from 'nuxt-storage';
 
 useHead({
   title: 'Leetcode by Companies',
-  meta: [
-    { name: 'description', content: 'My amazing site.' }
-  ],
-  bodyAttrs: {
-    class: 'test'
-  },
-  script: [ { innerHTML: 'console.log(\'Hello world\')' } ]
 })
     
 const runtimeConfig = useRuntimeConfig();
@@ -85,15 +75,15 @@ if (loadData == null) {
 const solvedData = nuxtStorage.localStorage.getData('solvedQuestions');
 const solvedQuestionsLocalStorage = ref(solvedData);
 
-const { data: fetchedCompanies } = await useFetch('/company', {baseURL: runtimeConfig.public.API_BASE_URL});
-const { data: fetchedTimelines } = await useFetch('/time', {
+const { data: fetchedCompanies } = await useLazyFetch('/company', {baseURL: runtimeConfig.public.API_BASE_URL});
+const { data: fetchedTimelines } = await useLazyFetch('/time', {
     method: "POST",
     body: {
       company: company
     },
     baseURL: runtimeConfig.public.API_BASE_URL
 })
-const { data: fetchedQuestions } = await useFetch('/questions', {
+const { data: fetchedQuestions } = await useLazyFetch('/questions', {
     method: "POST",
     body: {
       company: company,
