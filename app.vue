@@ -43,7 +43,7 @@
     <el-table-column label="Name" width="600" >
       <template #default="scope">
         <div style="display: flex; align-items: center">
-          <a :href="scope.row.link" style="margin-left: 10px">{{ scope.row.title }}</a>
+          <a :href="scope.row.link" target="__blank" style="margin-left: 10px">{{ scope.row.title }}</a>
         </div>
       </template>
     </el-table-column>
@@ -57,8 +57,15 @@
 <script setup>
 import nuxtStorage from 'nuxt-storage';
 
-useMeta({
-  title: 'Preparation Tracker'
+useHead({
+  title: 'Leetcode by Companies',
+  meta: [
+    { name: 'description', content: 'My amazing site.' }
+  ],
+  bodyAttrs: {
+    class: 'test'
+  },
+  script: [ { innerHTML: 'console.log(\'Hello world\')' } ]
 })
     
 const runtimeConfig = useRuntimeConfig();
@@ -76,7 +83,6 @@ if (loadData == null) {
   nuxtStorage.localStorage.setData('solvedQuestions', m, 365, "d");
 };
 const solvedData = nuxtStorage.localStorage.getData('solvedQuestions');
-console.log(solvedData);
 const solvedQuestionsLocalStorage = ref(solvedData);
 
 const { data: fetchedCompanies } = await useFetch('/company', {baseURL: runtimeConfig.public.API_BASE_URL});
