@@ -1,5 +1,5 @@
 {
-	"name": "nuxt-app",
+	"name": "leetcode-practice",
 	"private": true,
 	"scripts": {
 		"build": "nuxt build",
@@ -10,20 +10,21 @@
 	},
 	"devDependencies": {
 		"@element-plus/nuxt": "^1.0.5",
+		"@nuxt/devtools": "^0.6.4",
 		"@types/node": "^18",
 		"element-plus": "^2.3.4",
-		"nuxt": "^3.5.0"
+		"nuxt": "^3.5.1"
 	},
 	"dependencies": {
 		"nuxt-storage": "^1.2.2"
 	},
-  "pnpm": {
-    "peerDependencyRules": {
-      "ignoreMissing": [
-        "webpack",
-        "vite",
-        "vue"
-      ]
-    }
-  }
+	"pnpm": {
+		"peerDependencyRules": {
+			"ignoreMissing": [
+				"webpack",
+				"vite",
+				"vue"
+			]
+		}
+	}
 }
